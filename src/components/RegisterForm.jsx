@@ -38,6 +38,7 @@ const regSchema = z
     message: "Adgangskoderne matcher ikke",
   });
 export default function RegisterForm() {
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -46,6 +47,8 @@ export default function RegisterForm() {
     confirmPassword: "",
     birthDate: "",
     tlf: "",
+    postNum: "",
+    adress: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -77,149 +80,167 @@ export default function RegisterForm() {
       setErrors(result.error.flatten().fieldErrors);
       return;
     }
-
-    alert("Form submitted");
+    setSubmitted(true);
   };
 
   return (
-    <form onSubmit={submitHanlder} className="reg-form" action="">
-      <fieldset className="reg-form__fieldset">
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">FirstName:</span>
-          <input
-            className="reg-form__input"
-            type="text"
-            name="firstName"
-            id="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.firstName &&
-              errors.firstName.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">LastName:</span>
-          <input
-            className="reg-form__input"
-            type="text"
-            name="lastName"
-            id="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.lastName &&
-              errors.lastName.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Email:</span>
-          <input
-            className="reg-form__input"
-            type="email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.email &&
-              errors.email.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Password:</span>
-          <input
-            className="reg-form__input"
-            type="password"
-            name="password"
-            id="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.password &&
-              errors.password.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Confirm Password:</span>
-          <input
-            className="reg-form__input"
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.confirmPassword &&
-              errors.confirmPassword.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Birthdate:</span>
-          <input
-            className="reg-form__input"
-            type="date"
-            name="birthDate"
-            id="birthDate"
-            value={formData.birthDate}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.birthDate &&
-              errors.birthDate.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Telefon Number:</span>
-          <input
-            className="reg-form__input"
-            type="tel"
-            name="tlf"
-            id="tlf"
-            value={formData.tlf}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.tlf && errors.tlf.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Post Number:</span>
-          <input
-            className="reg-form__input"
-            type="tel"
-            name="postNum"
-            id="postNum"
-            value={formData.postNum}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.postNum &&
-              errors.postNum.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-        <label className="reg-form__label" htmlFor="">
-          <span className="reg-form__span">Adress:</span>
-          <input
-            className="reg-form__input"
-            type="tel"
-            name="adress"
-            id="adress"
-            value={formData.adress}
-            onChange={handleChange}
-          />
-          <ul className="reg-form__error-list">
-            {errors.adress &&
-              errors.adress.map((err, i) => <li key={i}>{err}</li>)}
-          </ul>
-        </label>
-      </fieldset>
-      <button className="reg-form__btn">Register</button>
-    </form>
+    <>
+      <form onSubmit={submitHanlder} className="reg-form" action="">
+        <fieldset className="reg-form__fieldset">
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">FirstName:</span>
+            <input
+              className="reg-form__input"
+              type="text"
+              name="firstName"
+              id="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.firstName &&
+                errors.firstName.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">LastName:</span>
+            <input
+              className="reg-form__input"
+              type="text"
+              name="lastName"
+              id="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.lastName &&
+                errors.lastName.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Email:</span>
+            <input
+              className="reg-form__input"
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.email &&
+                errors.email.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Password:</span>
+            <input
+              className="reg-form__input"
+              type="password"
+              name="password"
+              id="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.password &&
+                errors.password.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Confirm Password:</span>
+            <input
+              className="reg-form__input"
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.confirmPassword &&
+                errors.confirmPassword.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Birthdate:</span>
+            <input
+              className="reg-form__input"
+              type="date"
+              name="birthDate"
+              id="birthDate"
+              value={formData.birthDate}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.birthDate &&
+                errors.birthDate.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Telefon Number:</span>
+            <input
+              className="reg-form__input"
+              type="tel"
+              name="tlf"
+              id="tlf"
+              value={formData.tlf}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.tlf && errors.tlf.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Post Number:</span>
+            <input
+              className="reg-form__input"
+              type="tel"
+              name="postNum"
+              id="postNum"
+              value={formData.postNum}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.postNum &&
+                errors.postNum.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+          <label className="reg-form__label" htmlFor="">
+            <span className="reg-form__span">Adress:</span>
+            <input
+              className="reg-form__input"
+              type="tel"
+              name="adress"
+              id="adress"
+              value={formData.adress}
+              onChange={handleChange}
+            />
+            <ul className="reg-form__error-list">
+              {errors.adress &&
+                errors.adress.map((err, i) => <li key={i}>{err}</li>)}
+            </ul>
+          </label>
+        </fieldset>
+        <button className="reg-form__btn">Register</button>
+      </form>
+      {submitted && (
+        <div className="sub-cor">
+          <h2>Form submitted correctly!</h2>
+          <div>
+            <ul>
+              <li>First Name: {formData.firstName}</li>
+              <li>Last Name: {formData.lastName}</li>
+              <li>Email: {formData.email}</li>
+              <li>Birthdate: {formData.birthDate}</li>
+              <li>Telefon Number {formData.tlf}</li>
+              <li>Post Number: {formData.postNum}</li>
+              <li>Adress: {formData.adress}</li>
+            </ul>
+          </div>
+        </div>
+        
+      )}
+    </>
   );
 }
